@@ -10,7 +10,7 @@ const env = {}
 
 const createScene = function () {
   const scene = new BABYLON.Scene(engine)
-  // scene.ambientColor = new BABYLON.Color3(0.3, 0.3, 0.3)
+  scene.ambientColor = new BABYLON.Color3(0.3, 0.3, 0.3)
   scene.enablePhysics()
 
   const camera = new BABYLON.FreeCamera(
@@ -28,19 +28,6 @@ const createScene = function () {
 
   // camera.panningAxis = new BABYLON.Vector3(0, 0, 0) // 定义平移轴
   camera.attachControl(canvas, true)
-
-  // // 创建一个可接受物理影响的盒子
-  // var box = BABYLON.MeshBuilder.CreateBox('box', { size: 1 }, scene)
-  // box.position.y = 5 // 将盒子放置在场景中
-
-  // // 使盒子可接受物理影响
-  // box.physicsImpostor = new BABYLON.PhysicsImpostor(
-  //   box,
-  //   BABYLON.PhysicsImpostor.BoxImpostor,
-  //   { mass: 1, restitution: 0.9 },
-  //   scene
-  // )
-  // camera.parent = box
 
   // 处理键盘输入
   var inputMap = {}
@@ -91,15 +78,15 @@ const createScene = function () {
     scene.render()
   })
 
-  // env.lighting = BABYLON.CubeTexture.CreateFromPrefilteredData(
-  //   'https://assets.babylonjs.com/environments/environmentSpecular.env',
-  //   scene
-  // )
-  // env.lighting.name = 'hamburg_hbf'
-  // env.lighting.gammaSpace = false
-  // env.lighting.rotationY = BABYLON.Tools.ToRadians(0)
-  // env.lighting.intensity = 1 // You can experiment with different values between 0 and 1
-  // scene.environmentTexture = env.lighting
+  env.lighting = BABYLON.CubeTexture.CreateFromPrefilteredData(
+    'https://assets.babylonjs.com/environments/environmentSpecular.env',
+    scene
+  )
+  env.lighting.name = 'hamburg_hbf'
+  env.lighting.gammaSpace = false
+  env.lighting.rotationY = BABYLON.Tools.ToRadians(0)
+  env.lighting.intensity = 1 // You can experiment with different values between 0 and 1
+  scene.environmentTexture = env.lighting
 
   // scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(
   //   'https://assets.babylonjs.com/environments/environmentSpecular.env',
@@ -108,14 +95,14 @@ const createScene = function () {
   // scene.createDefaultSkybox(scene.environmentTexture)
 
   // 球体
-  var sphere = BABYLON.MeshBuilder.CreateSphere(
-    'sphere',
-    { diameter: 35 },
-    scene
-  )
-  sphere.material = new BABYLON.PBRMaterial('sphereMaterial', scene)
-  sphere.material.reflectionTexture = env.lighting
-  sphere.material.microSurface = 1.0 // 设置为1.0以确保完全反射
+  // var sphere = BABYLON.MeshBuilder.CreateSphere(
+  //   'sphere',
+  //   { diameter: 35 },
+  //   scene
+  // )
+  // sphere.material = new BABYLON.PBRMaterial('sphereMaterial', scene)
+  // sphere.material.reflectionTexture = env.lighting
+  // sphere.material.microSurface = 1.0 // 设置为1.0以确保完全反射
 
   // 天空盒
   env.skybox = BABYLON.MeshBuilder.CreateBox('skyBox', { size: 1000.0 }, scene)
@@ -131,28 +118,6 @@ const createScene = function () {
   env.skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0)
   env.skybox.material = env.skyboxMaterial
 
-  // const hemisphericLight = new BABYLON.HemisphericLight(
-  //   'light',
-  //   new BABYLON.Vector3(0, 30, 0),
-  //   scene
-  // )
-  // hemisphericLight.intensity = 0.9
-  // const lightDirection = new BABYLON.Vector3(0, -1, 0)
-  // const light = new BABYLON.DirectionalLight(
-  //   'DirectionalLight',
-  //   lightDirection,
-  //   scene
-  // )
-
-  // scene.addLight(hemisphericLight)
-  // let shadowGenerator = new BABYLON.ShadowGenerator(2048, light)
-  // shadowGenerator.useKernelBlur = true
-  // // shadowGenerator.blurKernel = 200
-  // // shadowGenerator.useBlurExponentialShadowMap = true
-
-  // shadowGenerator.setDarkness(0.5)
-  // shadowGenerator.filter = BABYLON.ShadowGenerator.FILTER_PCF
-
   // 灯光
 
   lights.dirLight = new BABYLON.DirectionalLight(
@@ -164,14 +129,12 @@ const createScene = function () {
   lights.dirLight.shadowMaxZ = 0.45
   lights.dirLight.intensity = 10
 
-  // lights.dirLight = new BABYLON.DirectionalLight(
-  //   'dirLight',
-  //   new BABYLON.Vector3(0.6, -0.7, 0.63),
-  //   scene
-  // )
-  // lights.dirLight.position = new BABYLON.Vector3(-0.05, 0.35, -0.05)
-  // lights.dirLight.shadowMaxZ = 0.45
-  // lights.dirLight.intensity = 10
+  lights.dirLight = new BABYLON.DirectionalLight(
+    'dirLight',
+    new BABYLON.Vector3(0.6, -0.7, 0.63),
+    scene
+  )
+
   return scene
 }
 const scene = createScene() //Call the createScene function
