@@ -1,0 +1,22 @@
+{
+  "name": "bjs-project",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@babylonjs/core": "^6.31.0",
+    "@babylonjs/loaders": "^6.31.0",
+    "vite": "^5.0.2"
+  },
+  "dependencies": {
+    "babylonjs": "^6.30.0"
+  }
+}
